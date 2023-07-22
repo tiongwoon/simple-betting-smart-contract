@@ -48,12 +48,8 @@ contract simpleBettingContract {
 
     //set bets
     function setBet() public payable {
-        //sender address must be one of the players and not the judge
-        if (
-            msg.sender != playerOne ||
-            msg.sender != playerTwo ||
-            msg.sender == judge
-        ) {
+        //sender address must be one of the players
+        if (msg.sender != playerOne && msg.sender != playerTwo) {
             revert IllegitimatePlayer(msg.sender);
         }
         //bet must be larger than minimum bet size
@@ -73,7 +69,7 @@ contract simpleBettingContract {
             revert IllegitimateJudge(msg.sender);
         }
         //check if winner is one of player one and two
-        if (_winner != playerOne || _winner != playerTwo) {
+        if (_winner != playerOne && _winner != playerTwo) {
             revert IllegitimatePlayer(_winner);
         }
         //set winner
